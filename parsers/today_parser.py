@@ -1,10 +1,10 @@
-from parsers.func import html_get, repair_dayofweek, save_file, timetable_text_generator
+from parsers.func import html_get, timetable_text_generator, save_file, repair_dayofweek
 from bs4 import BeautifulSoup
 
-def parser_morning(url, header) -> str:
+def parser_today(url, header) -> str:
     html = html_get(url, header)
     soup = BeautifulSoup(html, 'lxml')
-
+    
     col = soup.find('div', class_='row tab-pane active').find('div', class_='list col-md-2 today')
     try:
         dayofweek = col.find('div', class_='dayofweek').get_text()
@@ -17,11 +17,11 @@ def parser_morning(url, header) -> str:
     text = f'{dayofweek_repair}\n\n'
 
     paras = col.find_all('div', class_='timetable_sheet')
-    text = timetable_text_generator(paras, text)
+    timetable_text_generator(paras, text)
 
     save_file(html, 'timetable')
 
     return text
 
 if __name__ == '__main__':
-    print(parser_morning())
+    print(parser_today('https://ruz.narfu.ru/?timetable&group=16555', {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 OPR/90.0.4480.100'}))
