@@ -3,8 +3,12 @@ from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemo
 b1 = KeyboardButton('/привет')
 b2 = KeyboardButton('/погода')
 b3 = KeyboardButton('/помощь')
+b4 = KeyboardButton('/зменю')
+b5 = KeyboardButton('/расписание')
+b6 = KeyboardButton('/активация')
 
 kb_client = ReplyKeyboardMarkup(resize_keyboard=True)
+kb_client.row(b4).row(b5).row(b6)
 kb_client.insert(b1).insert(b2).insert(b3)
 
 #кнопки на случай команды /расписание
