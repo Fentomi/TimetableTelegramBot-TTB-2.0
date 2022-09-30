@@ -21,7 +21,7 @@ def parser_yesterday(url, header) -> str:
             return 'нет расписания на субботу.'
     else:
         container = soup.find('div', class_='row tab-pane active')
-        col = container.find('div', class_='list col-md-2 today').next_sibling
+        col = container.find('div', class_='list col-md-2 today').find_next_sibling('div', class_='list col-md-2')
         paras = col.find_all('div', class_='timetable_sheet')
 
     dayofweek = col.find('div', class_='dayofweek').get_text()

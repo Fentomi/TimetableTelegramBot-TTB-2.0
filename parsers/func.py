@@ -36,18 +36,21 @@ def timetable_text_generator(paras=list, text=str) -> str:
         auditorium = ''
         group = ''
         try:
-            time_para = para.find('span', class_='time_para').get_text()
+            time_para_one = para.find('span', class_='time_para').get_text()
             kindOfWork = para.find('span', class_='kindOfWork').get_text()
             discipline = para.find('span', class_='discipline').get_text()
             auditorium_b = para.find('span', class_='auditorium').find('b').get_text()
             auditorium_other = para.find('span', class_='auditorium').find('b').next_sibling
-            group = para.find('span', class_='group').get_text()
-            time_para = ''.join(time_para.split())
+            time_para = time_para_one.lstrip()
             auditorium_other = ''.join(auditorium_other.split())
             auditorium_other_split = auditorium_other.split(',')
             auditorium = auditorium_b + ', ' + auditorium_other_split[-1]
         except:
-            pass
+            print('что-то пошло не так')
+        try:
+            group = para.find('span', class_='group').get_text()
+        except:
+            print('мы нашли предателя!')
         if time_para != '' and discipline != '':
             text += f'{num_para}) <u>[{time_para}]</u>\n{kindOfWork}\n<pre>{discipline}</pre>\n{auditorium}\n<i>{group}</i>\n\n'
         else:

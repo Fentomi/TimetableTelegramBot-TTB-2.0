@@ -17,7 +17,7 @@ def parser_today(url, header) -> str:
     text = f'{dayofweek_repair}\n\n'
 
     paras = col.find_all('div', class_='timetable_sheet')
-    timetable_text_generator(paras, text)
+    text = timetable_text_generator(paras, text)
 
     save_file(html, 'timetable')
 
