@@ -27,6 +27,35 @@ def repair_dayofweek(dayofweek) -> str:
         dayofweek_repair += new
     return dayofweek_repair
 
+def para_text_genetator(para, text=str) -> str:
+    num_para = para.find('span', class_='num_para').get_text()
+    time_para = 'пустая пара'
+    kindOfWork = ''
+    discipline = ''
+    auditorium = ''
+    group = ''
+    try:
+        time_para_one = para.find('span', class_='time_para').get_text()
+        kindOfWork = para.find('span', class_='kindOfWork').get_text()
+        discipline = para.find('span', class_='discipline').get_text()
+        auditorium_b = para.find('span', class_='auditorium').find('b').get_text()
+        auditorium_other = para.find('span', class_='auditorium').find('b').next_sibling
+        time_para = time_para_one.lstrip()
+        auditorium_other = ''.join(auditorium_other.split())
+        auditorium_other_split = auditorium_other.split(',')
+        auditorium = auditorium_b + ', ' + auditorium_other_split[-1]
+    except:
+        pass
+    try:
+        group = para.find('span', class_='group').get_text()
+    except:
+        pass
+    if time_para != '' and discipline != '':
+        text += f'{num_para}) <u>[{time_para}]</u>\n{kindOfWork}\n<pre>{discipline}</pre>\n{auditorium}\n<i>{group}</i>\n\n'
+    else:
+        text += f'{num_para}) [{time_para}]\n\n'
+    return text
+
 def timetable_text_generator(paras=list, text=str) -> str:
     for para in paras:
         num_para = para.find('span', class_='num_para').get_text()
@@ -46,11 +75,11 @@ def timetable_text_generator(paras=list, text=str) -> str:
             auditorium_other_split = auditorium_other.split(',')
             auditorium = auditorium_b + ', ' + auditorium_other_split[-1]
         except:
-            print('что-то пошло не так')
+            pass
         try:
             group = para.find('span', class_='group').get_text()
         except:
-            print('мы нашли предателя!')
+            pass
         if time_para != '' and discipline != '':
             text += f'{num_para}) <u>[{time_para}]</u>\n{kindOfWork}\n<pre>{discipline}</pre>\n{auditorium}\n<i>{group}</i>\n\n'
         else:
