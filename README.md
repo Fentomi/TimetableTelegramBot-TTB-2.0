@@ -1,10 +1,4 @@
 # _TimetableTelegramBot-TTB-2.0_
-_my first async telegram-bot on Python_
-
-##### **_Who this bot is for:_**
-This bot was developed for my personal tasks, so the answer is short: **No, not useful**.
-
-### **Ru-версия Readme**
 ##### **_Основная задача бота:_**
 Вывод информации о текущем расписании на сайте института narfu.ru и промежуточное сохранение файлов сайта у себя, чтобы всегда иметь доступ к информации. (Сайт очень любит ложиться спать от перенагрузки на сервер)
 
